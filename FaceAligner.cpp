@@ -31,6 +31,6 @@ class FaceAligner{
     //Falta el tipo de dato de rect
     void align(Mat img, Mat gray, std::vector<rectangle> rect){
        full_object_detection shape = sp(gray, rect);
-       shape = 
+       shape = shape_to_np(shape);
     }
 }

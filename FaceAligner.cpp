@@ -43,6 +43,26 @@ class FaceAligner{
 	*/
     void align(Mat img, Mat gray, Rect rect){
 		    full_object_detection shape = sp(gray, rect);
-		    shape = shapeToNP(shape);
+		    int[][] shapeNP = shapeToNP(shape);
+        //Proximamente leerá de un mapa los datos
+        int LeftX1 = 42;
+        int LeftX2=48;
+        int RightX1 = 36;
+        int RightX2=42;
+        //checa los puntos de la imagen para saber los puntos en los que están el ojo izq y der
+        int[68][2] LeftEyePoints;
+        for(i = Leftx1; i<=LeftX2; i++){
+            for(j = 0; j<=1; j++){
+                    LeftEyePoints[i][j] = shapeNP[i][j];
+             }
+        }
+        
+        int[68][2] RightEyePoints;
+        for(i = Rightx1; i<=RightX2; i++){
+            for(j = 0; j<=1; j++){
+                Right   EyePoints[i][j] = shapeNP[i][j];
+            }
+        }
+        
     }
 }

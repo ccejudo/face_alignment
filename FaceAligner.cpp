@@ -22,8 +22,8 @@ class FaceAligner{
   public:
     FaceAligner(shapePredictor sp1, double xDesiredLeftEye1, double yDesiredLeftEye1, int desiredFaceWidth1, int desiredFaceHeight1){
       sp = sp1;
-	  xDesiredLeftEye = xDesiredLeftEye1;
-	  yDesiredLeftEye = yDesiredLeftEye1;
+	    xDesiredLeftEye = xDesiredLeftEye1;
+	    yDesiredLeftEye = yDesiredLeftEye1;
       desiredFaceWidth = desiredFaceWidth1;
       desiredFaceHeight = desiredFaceHeight1;
     }
@@ -39,10 +39,10 @@ class FaceAligner{
 	  IN INT width,
 	  IN INT height
 	);
-	
+
 	*/
     void align(Mat img, Mat gray, Rect rect){
-		full_object_detection shape = sp(gray, rect);
-		shape = shapeToNP(shape);
+		    full_object_detection shape = sp(gray, rect);
+		    shape = shapeToNP(shape);
     }
 }

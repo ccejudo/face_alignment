@@ -11,20 +11,21 @@ private:
 class Helpers{
     //Falta el tipo de shape
     public:
-    shapeToNP(full_object_detection shape){
+    int[][] shapeToNP(full_object_detection shape){
         //Crea matriz de 68 x 2 de tipo int llena de ceros y la llama coords
         boost::numeric::ublas::zero_matrix<int> coords(68, 2);
         std::cout << m << '\n';
         //Convierte las 68 marcas en una tupla de 2 de coordenadas
         for (i = 1; i<=68;++i){
-            coords[i] = (shape.part(i).x , shape.part(i).y) //creo que está en la librería full object detection pero no se
+            //Regresa las coordenadas de cada rasgo de la cara
+            coords[i] = cv::Point landmark(shape.part(idx[i]).x(),shape.part(idx[i]).y());
         }
         return coords;
     }
     public:
-        rectToBB(std::vector<rectangle> rect){
+        int[] rectToBB(Rect rect){ //puede ser tipo std::vector<rectangle>
             //Convert to format (x,y,w,h)
-            int x = rect.left();
+            int x = rect.left(); //depende de la librería que encontremos 
             int y = rect.top();
             int w = rect.right() - x;
             int h = rect.bottom() - y;

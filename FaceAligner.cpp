@@ -13,24 +13,36 @@ using namespace std;
 class FaceAligner{
   //Atributos
   private:
-     shape_predictor sp;
-     double x_desired_left_eye;
-     double y_desired_left_eye;
+     shapePredictor sp;
+     double xDesiredLeftEye;
+     double yDesiredLeftEye;
      int desiredFaceWidth;
      int desiredFaceHeight;
 
   public:
-    FaceAligner(shape_predictor sp1, double x_desired_left_eye1, double y_desired_left_eye1, int desiredFaceWidth1, int desiredFaceHeight1){
+    FaceAligner(shapePredictor sp1, double xDesiredLeftEye1, double yDesiredLeftEye1, int desiredFaceWidth1, int desiredFaceHeight1){
       sp = sp1;
-      x_desired_left_eye = x_desired_left_eye1;
-      y_desired_left_eye = y_desired_left_eye1;
+	  xDesiredLeftEye = xDesiredLeftEye1;
+	  yDesiredLeftEye = yDesiredLeftEye1;
       desiredFaceWidth = desiredFaceWidth1;
       desiredFaceHeight = desiredFaceHeight1;
     }
 
     //Falta el tipo de dato de rect
-    void align(Mat img, Mat gray, std::vector<rectangle> rect){
-       full_object_detection shape = sp(gray, rect);
-       shape = shape_to_np(shape);
+	//Rect creo que ya viene con opencv/c++
+	/*
+	https://docs.microsoft.com/en-us/windows/win32/api/gdiplustypes/nf-gdiplustypes-rect-rect(inint_inint_inint_inint)
+
+	void Rect(
+	  IN INT x,
+	  IN INT y,
+	  IN INT width,
+	  IN INT height
+	);
+	
+	*/
+    void align(Mat img, Mat gray, Rect rect){
+		full_object_detection shape = sp(gray, rect);
+		shape = shapeToNP(shape);
     }
 }

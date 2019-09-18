@@ -6,12 +6,12 @@
 #include <iostream> //matriz
 
 private:
-    shape_predictor sp;
+    shapePredictor sp;
 
 class Helpers{
     //Falta el tipo de shape
     public:
-    shape_to_np(full_object_detection shape){
+    shapeToNP(full_object_detection shape){
         //Crea matriz de 68 x 2 de tipo int llena de ceros y la llama coords
         boost::numeric::ublas::zero_matrix<int> coords(68, 2);
         std::cout << m << '\n';
@@ -22,7 +22,7 @@ class Helpers{
         return coords;
     }
     public:
-        rect_to_bb(std::vector<rectangle> rect){
+        rectToBB(std::vector<rectangle> rect){
             //Convert to format (x,y,w,h)
             int x = rect.left();
             int y = rect.top();

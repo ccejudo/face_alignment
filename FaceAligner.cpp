@@ -45,7 +45,7 @@ class FaceAligner{
     void align(Mat img, Mat gray, Rect rect){
 		    full_object_detection shape = sp(gray, rect);
 		    int[][] shapeNP = shapeToNP(shape);
-        //Proximamente leerá de un mapa los datos,es el template creo
+        //Proximamente leerá de un mapa los datos
         int LeftX1 = 42;
         int LeftX2=48;
         int RightX1 = 36;
@@ -63,7 +63,7 @@ class FaceAligner{
         int[68][2] RightEyePoints;
         for(i = Rightx1; i<=RightX2; i++){
             for(j = 0; j<=1; j++){
-                Right   EyePoints[i][j] = shapeNP[i][j];
+                RightEyePoints[i][j] = shapeNP[i][j];
             }
         }
         
@@ -97,5 +97,26 @@ class FaceAligner{
     double desiredDist = (xDesiredRightEye - xDesiredLeftEye);
     desiredDist *= desiredFaceWidth;
     double scale = desiredDist / distancia;
+    
+    //computa coordinadas xy en los dos ojos
+    double eyesCenter[2];
+    eyesCenter[0] = (floor((LeftEyeCenterX + RightEyeCenterX) /2));
+    eyesCenter[1] = (floor((LeftEyeCenterX + RightEyeCenterX) /2));
+    
+    matriz[2][2] = Mat.getRotationMatrix2D(eyesCenter, angulo, escala); //podría jalar error porque no sabemos si eyesCenter es aceptado como matriz en C++
+    
+    //Actualizar el componente de traslación de la matriz
+    double Tx = desiredFaceWidth * 0.5;
+    double Ty = desiredFaceHeight * yDesiredLeftEye;
+    matriz[0,2] += (Tx - eyesCenter[0]);
+    matriz[1,2] += (Ty - eyesCenter[1]);
     }
+    //Aplica la transformación
+    vector[1][2];
+    vector[0][0] = desiredFaceWidth;
+    vector[0][1] = desiredFaceHeight;
+
+    //no sabemos que hace, vector se cambió por size pero no sabemos si es el mismo tipo
+   Mat input = warpAffine(img,matriz, vector, flags = INTER_LINEAR);
+
 }

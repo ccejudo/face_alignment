@@ -90,5 +90,12 @@ class FaceAligner{
     
     double angulo = (atan2(Dy, Dx)*180/PI)-180;
     
+    //computa donde quieres que este el ojo der basado en la coord del ojo izq
+    double xDesiredRightEye = 1.0 - xDesiredLeftEye;
+    //calcula la escala de la nueva imagen basado en la diferencia de ojos
+    double distancia = sqrt(pow(Dx,2) + pow(Dy,2));
+    double desiredDist = (xDesiredRightEye - xDesiredLeftEye);
+    desiredDist *= desiredFaceWidth;
+    double scale = desiredDist / distancia;
     }
 }

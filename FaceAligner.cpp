@@ -6,6 +6,7 @@
 #include <dlib/gui_widgets.h>
 #include <dlib/image_io.h>
 #include <iostream>
+#include <math.h> //para sacar el angulo
 
 using namespace dlib;
 using namespace std;
@@ -22,8 +23,8 @@ class FaceAligner{
   public:
     FaceAligner(shapePredictor sp1, double xDesiredLeftEye1, double yDesiredLeftEye1, int desiredFaceWidth1, int desiredFaceHeight1){
       sp = sp1;
-	  xDesiredLeftEye = xDesiredLeftEye1;
-	  yDesiredLeftEye = yDesiredLeftEye1;
+	    xDesiredLeftEye = xDesiredLeftEye1;
+	    yDesiredLeftEye = yDesiredLeftEye1;
       desiredFaceWidth = desiredFaceWidth1;
       desiredFaceHeight = desiredFaceHeight1;
     }
@@ -39,10 +40,83 @@ class FaceAligner{
 	  IN INT width,
 	  IN INT height
 	);
-	
+
 	*/
     void align(Mat img, Mat gray, Rect rect){
-		full_object_detection shape = sp(gray, rect);
-		shape = shapeToNP(shape);
+		    full_object_detection shape = sp(gray, rect);
+		    int[][] shapeNP = shapeToNP(shape);
+        //Proximamente leerá de un mapa los datos
+        int LeftX1 = 42;
+        int LeftX2=48;
+        int RightX1 = 36;
+        int RightX2=42;
+        
+        //checa los puntos de la imagen para saber los puntos en los que están el ojo izq y der
+        
+        int[68][2] LeftEyePoints;
+        for(i = Leftx1; i<=LeftX2; i++){
+            for(j = 0; j<=1; j++){
+                    LeftEyePoints[i][j] = shapeNP[i][j];
+             }
+        }
+        
+        int[68][2] RightEyePoints;
+        for(i = Rightx1; i<=RightX2; i++){
+            for(j = 0; j<=1; j++){
+                RightEyePoints[i][j] = shapeNP[i][j];
+            }
+        }
+        
+        //computar el centro de masa de cada ojo, saca el promedio de los puntos X y Y de cada ojo
+        //para sacar el angulo
+        
+        int LeftEyeCenterX;
+        int LeftEyeCenterY;
+        int RightEyeCenterX;
+        int RightEyeCenterY;
+        
+        for(i = Leftx1; i<=LeftX2; i++){
+            for(j = 0; j<=1; j++){
+                    LeftEyeCenterX = LeftEyeCenter + LeftEyePoints[i][0];
+                    LeftEyeCenterY = LeftEyeCenter + LeftEyePoints[i][1];
+                    RightEyeCenterX = RightEyeCenter + RightEyePoints[i][0];
+                    RightEyeCenterY = RightEyeCenter + RightEyePoints[i][1];
+                }
+            }
+        }
+    
+        int Dy = RightEyeCenterY - LeftEyeCenterY;
+        int Dx = RightEyeCenterX - LeftEyeCenterX;
+    
+    double angulo = (atan2(Dy, Dx)*180/PI)-180;
+    
+    //computa donde quieres que este el ojo der basado en la coord del ojo izq
+    double xDesiredRightEye = 1.0 - xDesiredLeftEye;
+    //calcula la escala de la nueva imagen basado en la diferencia de ojos
+    double distancia = sqrt(pow(Dx,2) + pow(Dy,2));
+    double desiredDist = (xDesiredRightEye - xDesiredLeftEye);
+    desiredDist *= desiredFaceWidth;
+    double scale = desiredDist / distancia;
+    
+    //computa coordinadas xy en los dos ojos
+    double eyesCenter[2];
+    eyesCenter[0] = (floor((LeftEyeCenterX + RightEyeCenterX) /2));
+    eyesCenter[1] = (floor((LeftEyeCenterX + RightEyeCenterX) /2));
+    
+    matriz[2][2] = Mat.getRotationMatrix2D(eyesCenter, angulo, escala); //podría jalar error porque no sabemos si eyesCenter es aceptado como matriz en C++
+    
+    //Actualizar el componente de traslación de la matriz
+    double Tx = desiredFaceWidth * 0.5;
+    double Ty = desiredFaceHeight * yDesiredLeftEye;
+    matriz[0,2] += (Tx - eyesCenter[0]);
+    matriz[1,2] += (Ty - eyesCenter[1]);
     }
+    //Aplica la transformación
+    vector[1][2];
+    vector[0][0] = desiredFaceWidth;
+    vector[0][1] = desiredFaceHeight;
+
+    //no sabemos que hace, vector se cambió por size pero no sabemos si es el mismo tipo
+   Mat input = warpAffine(img,matriz, vector, flags = INTER_LINEAR);
+
 }

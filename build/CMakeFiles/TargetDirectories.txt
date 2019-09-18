@@ -1,0 +1,8 @@
+/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Modelling/face_alignment/build/CMakeFiles/rebuild_cache.dir
+/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Modelling/face_alignment/build/CMakeFiles/edit_cache.dir
+/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Modelling/face_alignment/build/CMakeFiles/fr.dir
+/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Modelling/face_alignment/build/dlib_build/CMakeFiles/rebuild_cache.dir
+/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Modelling/face_alignment/build/dlib_build/CMakeFiles/edit_cache.dir
+/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Modelling/face_alignment/build/dlib_build/dlib/CMakeFiles/rebuild_cache.dir
+/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Modelling/face_alignment/build/dlib_build/dlib/CMakeFiles/edit_cache.dir
+/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Modelling/face_alignment/build/dlib_build/dlib/CMakeFiles/dlib.dir

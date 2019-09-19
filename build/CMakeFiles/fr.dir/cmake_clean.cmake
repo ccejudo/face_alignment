@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/fr.dir/FaceAligner.cpp.o"
+  "CMakeFiles/fr.dir/Main.cpp.o"
   "fr"
   "fr.pdb"
 )

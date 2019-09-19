@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Modelling/face_alignment/FaceAligner.cpp" "/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Modelling/face_alignment/build/CMakeFiles/fr.dir/FaceAligner.cpp.o"
+  "/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Modelling/face_alignment/Main.cpp" "/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Modelling/face_alignment/build/CMakeFiles/fr.dir/Main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

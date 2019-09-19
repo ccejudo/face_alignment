@@ -8,13 +8,8 @@ project(fr)
 
 set (CMAKE_CXX_STANDARD 11)
 
- set(SOURCE 	clusteringAndIndexing/chinesewhispers.cpp
-				clusteringAndIndexing/evaluator.cpp
-				clusteringAndIndexing/glc.cpp
-				common/common.cpp
-				common/Utils.cpp
-				face/FaceDescriptor_dking.cpp
-				test_faceclust.cpp
+ set(SOURCE
+        FaceAligner.cpp
     )
 
  set(HEADERS	clusteringAndIndexing/chinesewhispers.h
@@ -53,6 +48,6 @@ add_subdirectory(/Users/cristophercejudo/Desktop/ITESM/5º_Semestre/Software_Mod
 
 include_directories(${fr_include})
 
-add_executable(fr FaceAligner.cpp)
+add_executable(fr Main.cpp ${SOURCE})
 # add_executable(fr FaceAligner.cpp ${SOURCE} ${HEADERS})
 target_link_libraries(fr ${OpenCV_LIBS} dlib::dlib)

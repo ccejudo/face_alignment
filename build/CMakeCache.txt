@@ -360,7 +360,7 @@ DLIB_PNG_SUPPORT:BOOL=ON
 //Disable this if you don't want to use a BLAS library
 DLIB_USE_BLAS:BOOL=ON
 
-//Disable this if you don't want to use a BLAS library
+//Disable this if you don't want to use NVIDIA CUDA
 DLIB_USE_CUDA:STRING=OFF
 
 //Disable this if you don't want to use a LAPACK library
@@ -1023,6 +1023,8 @@ LAPACK_REFERENCE_lapack_VERSION:INTERNAL=
 LIBJPEG_IS_GOOD:INTERNAL=1
 //Have function png_create_read_struct
 LIBPNG_IS_GOOD:INTERNAL=1
+//Have function sgetrf_single
+OPENBLAS_HAS_LAPACK:INTERNAL=
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 PKG_FONTCONFIG_CFLAGS:INTERNAL=-I/usr/local/Cellar/fontconfig/2.13.1/include;-I/usr/local/opt/freetype/include/freetype2

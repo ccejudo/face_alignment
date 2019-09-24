@@ -9,8 +9,6 @@
 #include <dlib/image_processing.h>
 #include <dlib/gui_widgets.h>
 #include <dlib/image_io.h>
-//#include <boost/numeric/ublas/matrix.hpp> //matriz
-//#include <boost/numeric/ublas/io.hpp> //matriz
 
 #include <math.h> //para sacar el angulo
 
@@ -29,26 +27,12 @@ class FaceAligner{
      int desiredFaceHeight;
 
   public:
-    FaceAligner(shape_predictor sp1, double xDesiredLeftEye1, double yDesiredLeftEye1, int desiredFaceWidth1, int desiredFaceHeight1){
-      sp = sp1;
+    FaceAligner(double xDesiredLeftEye1, double yDesiredLeftEye1, int desiredFaceWidth1, int desiredFaceHeight1){
 	    xDesiredLeftEye = xDesiredLeftEye1;
 	    yDesiredLeftEye = yDesiredLeftEye1;
       desiredFaceWidth = desiredFaceWidth1;
       desiredFaceHeight = desiredFaceHeight1;
     }
-
-    //Falta el tipo de dato de rect
-	//Rect creo que ya viene con opencv/c++
-	/*
-	https://docs.microsoft.com/en-us/windows/win32/api/gdiplustypes/nf-gdiplustypes-rect-rect(inint_inint_inint_inint)
-
-	void Rect(
-	  IN INT x,
-	  IN INT y,
-	  IN INT width,
-	  IN INT height
-	);
-*/
 
     cv::Mat align(string imagen){
         frontal_face_detector detector = get_frontal_face_detector();
@@ -62,7 +46,14 @@ class FaceAligner{
 
         std::vector<dlib::rectangle> dets = detector(img);
 
+        if (dets.size() == 0) {
+          std::cout << "No face detected" << '\n';
+          exit(1);
+        }
+
+
 		    full_object_detection shape = sp(img, dets[0]);
+
 
         int coords[68][2];
 
@@ -74,7 +65,7 @@ class FaceAligner{
 
         for (int i = 0; i<68;i++){
             //Regresa las coordenadas de cada rasgo de la cara
-            for (int j = 0; i<=1;i++){
+            for (int j = 0; j<2;j++){
                 if(j == 0){
                   coords[i][j] = shape.part(i).x();
                 }
@@ -84,7 +75,7 @@ class FaceAligner{
             }
         }
 
-        //Proximamente leerá de un mapa los datos
+
         int LeftX1 = 42;
         int LeftX2=48;
         int RightX1 = 36;
@@ -150,7 +141,7 @@ class FaceAligner{
     //Actualizar el componente de traslación de la matriz
     double Tx = desiredFaceWidth * 0.5;
     double Ty = desiredFaceHeight * yDesiredLeftEye;
-    imgMatrix.row(2) += (Tx - eyesCenter[0]);
+    imgMatrix.row(0) += (Tx - eyesCenter[0]);
     imgMatrix.col(1) += (Ty - eyesCenter[1]); //Revisón!!!!
 
 

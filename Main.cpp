@@ -23,11 +23,10 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
-	shape_predictor sp;
 
 	//frontal_face_detector detector = get_frontal_face_detector();
 	//deserialize(argv[1])>>sp;
-	FaceAligner faceA(sp, 40, 40 ,500, 500);
+	FaceAligner faceA(250, 750 ,900, 700);
 
 	Mat image = imread(argv[1]);
 	//Mat gray, faceAligned;
@@ -49,7 +48,7 @@ int main(int argc, char** argv) {
 	//faceAligned = faceA.align(image, gray, dets[0]);
 	//faceAligned = faceA.align(argv[2]);
 
-//imshow("Aligned", output);
+  imshow("Aligned", output);
 
 	waitKey(0);
 

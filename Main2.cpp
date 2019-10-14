@@ -23,9 +23,7 @@ int main(int argc, char** argv) {
   detector = get_frontal_face_detector();
 
   //Crear objeto Alineador
-  //Estos valores permiten que la imagen salga así
-  FaceAligner2 faceA2(50.0, 600.0, 600.0,  600.0, 1500);
-  //FaceAligner2 faceA2(5.0, 80.0, 60.0,  80.0, 150);
+  FaceAligner2 faceA2(40.0, 50.0, 110.0,  50.0, 150, 150); //Especifica los valores del template (IzqX,IzqY,DerX,DerY,Width,Height)
 
   //Cargar imagen a partir de su dirección de archivo
   load_image(img, argv[1]);
@@ -39,15 +37,7 @@ int main(int argc, char** argv) {
   if(dets.size() > 0){
     //Llamada al método align
     alignedImage2 = faceA2.alignCV(imageMat,img, dets);
-    //Aquí recortamos la imagen al valor requerido pero debe ir en la clase
-    cv::resize(alignedImage2, alignedImage2, cv::Size(150,150), 0, 0, cv::INTER_AREA);
     cv::imwrite("faceAligned.jpg", alignedImage2);
-
-    //tile_images convierte un arreglo de imágenes en 1 solo
-    //set_image muestra la imagen en pantalla
-    //window_fixed.set_image(tile_images(alignedImage));
-    //Suspender
-    //cin.get();
   }
   else{
     cout << "No face detected" << endl;

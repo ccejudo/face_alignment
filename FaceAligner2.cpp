@@ -22,7 +22,7 @@ class FaceAligner2{
   public:
 
     //Constructor
-    FaceAligner2(double xDesiredLeftEye1, double yDesiredLeftEye1, double xDesiredRightEye1, double yDesiredRightEye1, int desiredFaceWidth1){
+    FaceAligner2(double xDesiredLeftEye1, double yDesiredLeftEye1, double xDesiredRightEye1, double yDesiredRightEye1, int desiredFaceWidth1, int desiredFaceHeight1){
       //Guardar modelo de puntos faciales en la variable sp
       deserialize("shape_predictor_5_face_landmarks.dat") >> sp;
       DesiredLeftEye[0] = xDesiredLeftEye1;
@@ -30,7 +30,7 @@ class FaceAligner2{
       DesiredRightEye[0] = xDesiredRightEye1;
    	  DesiredRightEye[1] = yDesiredRightEye1;
       desiredFaceWidth = desiredFaceWidth1;
-      desiredFaceHeight = desiredFaceWidth1;
+      desiredFaceHeight = desiredFaceHeight1;
     }
 
     //Destructor
@@ -104,8 +104,11 @@ class FaceAligner2{
        Oi[0] = leftEyeCenter[0] - rightEyeCenter[0];
        Oi[1] = leftEyeCenter[1] - rightEyeCenter[1];
 
-       Opmagnitud = sqrt(pow(Op[0],2) + pow(Op[1],2));
+       Opmagnitud = sqrt(pow(Op[0],2) + pow(Op[1],2)); //No usar pow porque implica más a
        Oimagnitud = sqrt(pow(Oi[0],2) + pow(Oi[1],2));
+
+       //Opmagnitud = sqrt(Op[0]*Op[0]) + (Op[1]*Op[1]); //No usar pow porque implica más pasos pero no funciona
+       //Oimagnitud = sqrt(Oi[0]*Oi[0]) + (Oi[1]*Oi[1]);
 
        scale = Opmagnitud / Oimagnitud;
 
@@ -119,21 +122,20 @@ class FaceAligner2{
 
       //Traslación
       double traslacion[2];
-      //traslacion[0] = abs(DesiredLeftEye[0] - leftEyeCenter[0]);
-      //traslacion[1] = abs(DesiredLeftEye[1] - leftEyeCenter[1]);
+      traslacion[0] = DesiredLeftEye[0] - leftEyeCenter[0];
+      traslacion[1] = DesiredLeftEye[1] - leftEyeCenter[1];
 
-      //las traslaciones de arriba son las que importan, esto fue para probar
-      traslacion[0] = 0; //suma izquierda, menos derecha
-      traslacion[1] =400; //mas arriba derecha, menos abajo a la izq
 
-      //No sabemoos bien como funcione eyesCenterPoints
-      cv::Point2f eyesCenterPoints(traslacion[0],traslacion[1]);
-      //getRotationMatrix2D
+      //Se calcula el centro donde se va a rotar
+      cv::Point2f eyesCenterPoints(leftEyeCenter[0],leftEyeCenter[1]);
+      //Calcula el mat de la matriz rotada
       cv::Mat imgMatrix = cv::getRotationMatrix2D(eyesCenterPoints, angle, scale);
+      //Se especifica la traslación en la matriz mat
+      imgMatrix.at<double>(0,2) += traslacion[0];
+      imgMatrix.at<double>(1,2) += traslacion[1];
+
       //warpAffine
       cv::warpAffine(imageMat, image_aligned, imgMatrix, cv::Size(desiredFaceWidth,desiredFaceHeight), cv::INTER_LINEAR, cv::BORDER_CONSTANT);
-
-
       return image_aligned;
      }
 
@@ -144,21 +146,3 @@ class FaceAligner2{
        return midPoint;
      }
 };
-
-
-//Para ver donde quedan los ojos de la nueva imagen
-
-/*frontal_face_detector detector;
-matrix<rgb_pixel> aligned = tile_images(face_chips);
-
-std::vector<rectangle> dets2 = detector(aligned);
-shape = sp(aligned, dets2[0]);
-
-//Muestra las nuevas posiciones de los ojos
-
-cout << "New Positions" << '\n';
-cout << "left eye start pixel position: " << shape.part(2) << endl;
-cout << "left eye end pixel position: " << shape.part(3) << endl;
-
-cout << "right eye start pixel position: " << shape.part(1) << endl;
-cout << "right eye end pixel position: " << shape.part(0) << endl;*/

@@ -104,11 +104,8 @@ class FaceAligner2{
        Oi[0] = leftEyeCenter[0] - rightEyeCenter[0];
        Oi[1] = leftEyeCenter[1] - rightEyeCenter[1];
 
-       Opmagnitud = sqrt(pow(Op[0],2) + pow(Op[1],2)); //No usar pow porque implica más a
-       Oimagnitud = sqrt(pow(Oi[0],2) + pow(Oi[1],2));
-
-       //Opmagnitud = sqrt(Op[0]*Op[0]) + (Op[1]*Op[1]); //No usar pow porque implica más pasos pero no funciona
-       //Oimagnitud = sqrt(Oi[0]*Oi[0]) + (Oi[1]*Oi[1]);
+       Opmagnitud = sqrt((Op[0]*Op[0]) + (Op[1]*Op[1])); //No usar pow porque implica más pasos
+       Oimagnitud = sqrt((Oi[0]*Oi[0]) + (Oi[1]*Oi[1]));
 
        scale = Opmagnitud / Oimagnitud;
 

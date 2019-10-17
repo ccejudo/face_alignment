@@ -38,9 +38,7 @@ class FaceAligner2{
       cout << "Bye" << '\n';
     }
 
-    //Función para alinear --> Retorna un arreglo de pixeles
-    //img es pasada por referencia
-
+    //Función para alinear DLIB --> Retorna un arreglo de pixeles
     dlib::array<array2d<rgb_pixel>> align(array2d<rgb_pixel> &img, std::vector<rectangle> dets){
       //Vector de objetos full_object_detection
       std::vector<full_object_detection> shapes;
@@ -67,18 +65,30 @@ class FaceAligner2{
       return face_chips;
      }
 
-     //Función de alinear con Open CV
-     cv::Mat alignCV(cv::Mat imageMat,array2d<rgb_pixel> &img, std::vector<rectangle> dets){
-
+     //Función de alinear con OPEN CV
+     cv::Mat alignCV(cv::Mat imageMat, std::vector<rectangle> dets){
+       //Variables
        int leftEyeCenter[2];
        int rightEyeCenter[2];
        int imageMidPoint[2];
-
        cv::Mat image_aligned;
+       array2d<rgb_pixel> img;
+       full_object_detection shape;
+       double scale;
+       double Op[2];
+       double Oi[2];
+       double Opmagnitud;
+       double Oimagnitud;
+       double dY, dX;
+       double angle;
+       double traslacion[2];
+       cv::Mat imgMatrix;
 
-       //std::vector<full_object_detection> shapes;
+       //Transforma Mat a array2d
+       dlib::assign_image(img, dlib::cv_image<dlib::bgr_pixel>(imageMat));
 
-       full_object_detection shape = sp(img, dets[0]);
+       //Objeto que guarda los puntos
+       shape = sp(img, dets[0]);
 
        //Puntos de los ojos
        leftEyeCenter[0] = midPoint(shape.part(2).x(), shape.part(3).x());
@@ -91,13 +101,6 @@ class FaceAligner2{
        imageMidPoint[1] = midPoint(leftEyeCenter[1], rightEyeCenter[1]);
 
        //Escala
-       double scale;
-       double Op[2];
-       double Oi[2];
-       double Opmagnitud;
-       double Oimagnitud;
-
-
        Op[0] = DesiredLeftEye[0] - DesiredRightEye[0];
        Op[1] = DesiredLeftEye[1] - DesiredRightEye[1];
 
@@ -110,23 +113,20 @@ class FaceAligner2{
        scale = Opmagnitud / Oimagnitud;
 
        //Ángulo
-       double dY, dX;
-       double angle;
        dY = rightEyeCenter[1] - leftEyeCenter[1];
        dX = rightEyeCenter[0] - leftEyeCenter[0];
        angle = (atan2(dY, dX)*180/M_PI);
 
-
       //Traslación
-      double traslacion[2];
       traslacion[0] = DesiredLeftEye[0] - leftEyeCenter[0];
       traslacion[1] = DesiredLeftEye[1] - leftEyeCenter[1];
 
-
       //Se calcula el centro donde se va a rotar
       cv::Point2f eyesCenterPoints(leftEyeCenter[0],leftEyeCenter[1]);
+
       //Calcula el mat de la matriz rotada
-      cv::Mat imgMatrix = cv::getRotationMatrix2D(eyesCenterPoints, angle, scale);
+      imgMatrix = cv::getRotationMatrix2D(eyesCenterPoints, angle, scale);
+
       //Se especifica la traslación en la matriz mat
       imgMatrix.at<double>(0,2) += traslacion[0];
       imgMatrix.at<double>(1,2) += traslacion[1];
@@ -135,8 +135,8 @@ class FaceAligner2{
       cv::warpAffine(imageMat, image_aligned, imgMatrix, cv::Size(desiredFaceWidth,desiredFaceHeight), cv::INTER_LINEAR, cv::BORDER_CONSTANT);
       return image_aligned;
      }
-
-//Funcion para sacar punto medio
+     
+     //Funcion para sacar punto medio
      int midPoint(int x1, int x2){
        int midPoint = (x1 + x2)/2;
 

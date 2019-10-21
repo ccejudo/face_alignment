@@ -4,7 +4,7 @@
 #include <dlib/gui_widgets.h>
 #include <dlib/image_io.h>
 #include <iostream>
-#include "FaceAligner2.cpp"
+#include "FaceAligner2.hpp"
 #include <chrono>
 
 //Librerias
@@ -69,9 +69,9 @@ int main(int argc, char** argv) {
   detector = get_frontal_face_detector();
 
   //Crear objeto Alineador
-  FaceAligner2 faceA2(40.0, 50.0, 110.0,  50.0, 150, 150); //Especifica los valores del template (IzqX,IzqY,DerX,DerY,Width,Height)
+  FaceAligner2 faceA2(40.0, 50.0, 110.0,  50.0, 150, 150, "/Users/brias5/Desktop/face_alignment/build/shape_predictor_5_face_landmarks.dat"); //Especifica los valores del template (IzqX,IzqY,DerX,DerY,Width,Height)
 
-  int imagenes = 100;
+  int imagenes = 10;
   double promTiempo = 0;
   double minTiempo = 300000;
   double maxTiempo = 0; //no debe ser mayor a 300 000 micro segundos
@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
     if(dets.size() > 0){
       //Llamada al método align
       auto start = high_resolution_clock::now();
-      alignedImage2 = faceA2.alignCV(imageMat, dets);
+      alignedImage2 = faceA2.alignCV(imageMat, dets[0]);
       //TIEMPO DE EJECUCIÓN
       auto stop = high_resolution_clock::now(); //termina tiempo
       auto duration = duration_cast<microseconds>(stop - start); //saca diferencia

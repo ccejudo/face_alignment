@@ -5,26 +5,12 @@
 #include <dlib/opencv.h>
 #include <iostream>
 #include <math.h>
-
-using namespace dlib;
-using namespace std;
-
-class FaceAligner2{
-
-  //Atributos de la clase
-  private:
-    shape_predictor sp;
-    double DesiredLeftEye[2];
-    double DesiredRightEye[2];
-    int desiredFaceWidth;
-    int desiredFaceHeight;
-
-  public:
+#include "FaceAligner2.hpp"
 
     //Constructor
-    FaceAligner2(double xDesiredLeftEye1, double yDesiredLeftEye1, double xDesiredRightEye1, double yDesiredRightEye1, int desiredFaceWidth1, int desiredFaceHeight1){
+    FaceAligner2::FaceAligner2(double xDesiredLeftEye1, double yDesiredLeftEye1, double xDesiredRightEye1, double yDesiredRightEye1, int desiredFaceWidth1, int desiredFaceHeight1){
       //Guardar modelo de puntos faciales en la variable sp
-      deserialize("shape_predictor_5_face_landmarks.dat") >> sp;
+      dlib::deserialize("shape_predictor_5_face_landmarks.dat") >> sp;
       DesiredLeftEye[0] = xDesiredLeftEye1;
    	  DesiredLeftEye[1] = yDesiredLeftEye1;
       DesiredRightEye[0] = xDesiredRightEye1;
@@ -33,47 +19,31 @@ class FaceAligner2{
       desiredFaceHeight = desiredFaceHeight1;
     }
 
-    //Destructor
-    ~FaceAligner2(){
-      cout << "Bye" << '\n';
+    FaceAligner2::FaceAligner2(double xDesiredLeftEye1, double yDesiredLeftEye1, double xDesiredRightEye1, double yDesiredRightEye1, int desiredFaceWidth1, int desiredFaceHeight1, std::string path){
+      //Guardar modelo de puntos faciales en la variable sp
+      dlib::deserialize(path) >> sp;
+      DesiredLeftEye[0] = xDesiredLeftEye1;
+      DesiredLeftEye[1] = yDesiredLeftEye1;
+      DesiredRightEye[0] = xDesiredRightEye1;
+      DesiredRightEye[1] = yDesiredRightEye1;
+      desiredFaceWidth = desiredFaceWidth1;
+      desiredFaceHeight = desiredFaceHeight1;
     }
 
-    //Función para alinear DLIB --> Retorna un arreglo de pixeles
-    dlib::array<array2d<rgb_pixel>> align(array2d<rgb_pixel> &img, std::vector<rectangle> dets){
-      //Vector de objetos full_object_detection
-      std::vector<full_object_detection> shapes;
-
-      //Vector de pixeles
-      dlib::array<array2d<rgb_pixel>> face_chips;
-
-      //Obtener landmarks faciales de la cara detectada en la imagen
-      full_object_detection shape = sp(img, dets[0]);
-
-      //Añade el objeto shape al vector full_object_detection
-      shapes.push_back(shape);
-
-      //Función para escalar y rotar la imágen
-      extract_image_chips(img, get_face_chip_details(shapes, desiredFaceWidth, 0.25), face_chips);
-
-      //Muestra las posiciones de la imagen original
-      cout << "Original Positions" << '\n';
-      cout << "left eye start pixel position: " << shape.part(2).x() << endl;
-      cout << "left eye end pixel position: " << shape.part(3) << endl;
-
-      cout << "right eye start pixel position: " << shape.part(1) << endl;
-      cout << "right eye end pixel position: " << shape.part(0) << endl;
-      return face_chips;
-     }
+    //Destructor
+    FaceAligner2::~FaceAligner2(){
+      std::cout << "Bye" << '\n';
+    }
 
      //Función de alinear con OPEN CV
-     cv::Mat alignCV(cv::Mat imageMat, std::vector<rectangle> dets){
+     cv::Mat FaceAligner2::alignCV(cv::Mat imageMat, dlib::rectangle dets){
        //Variables
        int leftEyeCenter[2];
        int rightEyeCenter[2];
        int imageMidPoint[2];
        cv::Mat image_aligned;
-       array2d<rgb_pixel> img;
-       full_object_detection shape;
+       dlib::array2d<dlib::rgb_pixel> img;
+       dlib::full_object_detection shape;
        double scale;
        double Op[2];
        double Oi[2];
@@ -88,7 +58,7 @@ class FaceAligner2{
        dlib::assign_image(img, dlib::cv_image<dlib::bgr_pixel>(imageMat));
 
        //Objeto que guarda los puntos
-       shape = sp(img, dets[0]);
+       shape = sp(img, dets);
 
        //Puntos de los ojos
        leftEyeCenter[0] = midPoint(shape.part(2).x(), shape.part(3).x());
@@ -135,11 +105,9 @@ class FaceAligner2{
       cv::warpAffine(imageMat, image_aligned, imgMatrix, cv::Size(desiredFaceWidth,desiredFaceHeight), cv::INTER_LINEAR, cv::BORDER_CONSTANT);
       return image_aligned;
      }
-     
-     //Funcion para sacar punto medio
-     int midPoint(int x1, int x2){
-       int midPoint = (x1 + x2)/2;
 
+     //Funcion para sacar punto medio
+     int FaceAligner2::midPoint(int x1, int x2){
+       int midPoint = (x1 + x2)/2;
        return midPoint;
      }
-};

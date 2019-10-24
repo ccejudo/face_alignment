@@ -56,10 +56,10 @@ FaceAligner
     +int desiredFaceHeight;
 
 ------------
--align(array2d<rgb_pixel> &img, std::vector<rectangle> dets)
--alignCV(cv::Mat imageMat, std::vector<rectangle> dets)
+    -align(array2d<rgb_pixel> &img, std::vector<rectangle> dets)
+    -alignCV(cv::Mat imageMat, std::vector<rectangle> dets)
 
-## ¿How does it work the function alignCV?
+## ¿How does the function alignCV work?
 
 * First it determines the position of the center of the eyes from the original image.
 

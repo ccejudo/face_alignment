@@ -55,9 +55,25 @@ FaceAligner
     +int desiredFaceWidth;
     +int desiredFaceHeight;
 
-
+------------
 -align(array2d<rgb_pixel> &img, std::vector<rectangle> dets)
 -alignCV(cv::Mat imageMat, std::vector<rectangle> dets)
+
+## ¿How does it work the function alignCV?
+
+* First it determines the position of the center of the eyes from the original image.
+
+* Then it the scale is calculated through the eyes positions from the input and the output images.
+
+* It is calculated the angle between the eyes to know how much to rotate.
+
+* It is calculated the translation from the original image to the output image.
+
+* It is calculated the rotation matrix with the angle, translation and scale. This returns a mat.
+
+* It is calculated the output image mat with the function 'warpAffine' using the original mat, the rotation matrix mat and the desired size.
+
+* Finally it returns the output mat.
 
 
 ## Authors and acknowledgment

@@ -4,7 +4,7 @@ This is a multipataform C++ project that align a face of an input image, identif
 
 ## Description
 
-This is the 2nd module of a **Face Recognition** project. Functional and non-functional requirements can be found on the following link: https://trello.com/invite/b/5WHeFcX2/cf90313ec5cdf6685094467676a64ffd/face-recognition-module-2
+This is the 2nd module of a **Face Recognition** project. Functional and non-functional requirements can be found on the following link: [link to Trello!](https://trello.com/invite/b/5WHeFcX2/cf90313ec5cdf6685094467676a64ffd/face-recognition-module-2)
 
 ## Visuals
 
@@ -44,12 +44,14 @@ In order to align an image use the following commands on the main file:
 * cv::imwrite("Output/faceAligned" + to_string(i) + ".jpg", alignedImage2); <-- creates the image file of the aligned image.
 
 ## Authors and acknowledgment
-* Cristopher Cejudo. Role:
-* Martin Alegría. Role:
-* Octavio Garduza. Role:
-* Raziel Martínez. Role:
-* Ruben Sánchez. Role:
-* Sabrina Santana. Role:
+Author | Role
+------------ | -------------
+Cristopher Cejudo | Project Developer
+Martin Alegría | Project Developer
+Ruben Sánchez | Project Developer
+Sabrina Santana| Project Developer
+Octavio Garduza | Project Developer
+Raziel Martínez | Project Developer
 
 * Leonardo Chang. Role: Project Manager
 

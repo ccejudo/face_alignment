@@ -4,7 +4,7 @@ This is a multipataform C++ project that align a face of an input image by ident
 
 ## Description
 
-This is the 2nd module of a **Face Recognition** project. Functional and non-functional requirements can be found on the following link: [link to Trello!](https://trello.com/invite/b/5WHeFcX2/cf90313ec5cdf6685094467676a64ffd/face-recognition-module-2)
+This is the 2nd module of a **Face Recognition** project which align the input images. Functional and non-functional requirements can be found on the following link: [link to Trello!](https://trello.com/invite/b/5WHeFcX2/cf90313ec5cdf6685094467676a64ffd/face-recognition-module-2)
 
 ## Visuals
 * Here are some examples of images aligned with the project.
@@ -24,7 +24,7 @@ Steps to follow for the installation:
 * Step 2 --> Extract de project.
 
 * Step 3 --> On the 'CMakeLists.txt' file change the following:
-* add_subdirectory(/Users/brias5/desktop/face_alignment/dlib-19.17 dlib_build) <-- Insert your path to dlib in here.
+add_subdirectory(/Users/brias5/desktop/face_alignment/dlib-19.17 dlib_build) <-- Insert your path to dlib in here.
 
 * Step 4 --> When making an instance of 'FaceAligner2' in 'Main2' you can provide the path to the 'shape_predictor_5_face_landmarks', if you don't the constructor will automatically pull it from the Folder you already downloaded. Here you can change the parameters given to the ones that you need in order to have the face in a specific position or with a specific size.
 
@@ -39,7 +39,9 @@ This tests where done with help of the 'chrono' functions. When the new image is
 
 ## Usage
 In order to create a FaceAligner, you have to pass it the coordinates where you want the eyes to be in after the alignment, the desired dimension of the output aligned image, and, if you want to, you can also pass the path to the shape_predictor, if not omit the parameter.
+
 * FaceAligner2::FaceAligner2(double xDesiredLeftEye1, double yDesiredLeftEye1, double xDesiredRightEye1, double yDesiredRightEye1, int desiredFaceWidth1, int desiredFaceHeight1, std::string path)
+
 * Example: FaceAligner2 faceA2(40.0, 50.0, 110.0,  50.0, 150, 150, "/Users/brias5/Desktop/face_alignment/build/shape_predictor_5_face_landmarks.dat");
 
 In order to align an image use the following commands on the main file:
@@ -53,7 +55,7 @@ In order to align an image use the following commands on the main file:
 
 ## Design of the class FaceAligner2
 ------------
-FaceAligner
+FaceAligner2
 
     shape_predictor sp;
     +double DesiredLeftEye[2];
@@ -62,8 +64,8 @@ FaceAligner
     +int desiredFaceHeight;
 
 ------------
-    -align(array2d<rgb_pixel> &img, std::vector<rectangle> dets)
     -alignCV(cv::Mat imageMat, std::vector<rectangle> dets)
+    -midPoint(int x1, int x2);
 
 ## ¿How does the function alignCV work?
 

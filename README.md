@@ -1,13 +1,13 @@
 # Face Alignment Module
 
-This is a multipataform C++ project that align a face of an input image, identifying the eyes region to obtain a normalized rotation, translation, and scale representation of the face.
+This is a multipataform C++ project that align a face of an input image, identifying the eyes region to obtain a normalized and rotated representation of the face.
 
 ## Description
 
 This is the 2nd module of a **Face Recognition** project. Functional and non-functional requirements can be found on the following link: [link to Trello!](https://trello.com/invite/b/5WHeFcX2/cf90313ec5cdf6685094467676a64ffd/face-recognition-module-2)
 
 ## Visuals
-* Here are some examples of images aligned with the project. We can observe that all images are different and all images are aligned and cropped. 
+* Here are some examples of images aligned with the project. We can observe that all images are different and all images are aligned and cropped.
 ![imagen1](ImagenesReadme/imagen1.png)
 ![imagen2](ImagenesReadme/imagen2.png)
 ## Requirements
@@ -16,8 +16,8 @@ This is the 2nd module of a **Face Recognition** project. Functional and non-fun
 * Dlib
 
 ## Installation
-* The project includes a 'Main2' file which already has the instance of the class and a 'Input' folder with sample images. You can change the main to your convenience.
-* Steps to follow for the installation:
+The project includes a 'Main2' file which already has the instance of the class and a 'Input' folder with sample images. You can change the main to your convenience.
+Steps to follow for the installation:
 * Step 1 --> Download the project.
 * Step 2 --> Extract de project.
 * Step 3 --> On the 'CMakeLists.txt' file change the following:
@@ -44,6 +44,21 @@ In order to align an image use the following commands on the main file:
 * dets = detector(img); <-- detects face.
 * alignedImage2 = faceA2.alignCV(imageMat, dets[0]); <-- calls the function alignCV.
 * cv::imwrite("Output/faceAligned" + to_string(i) + ".jpg", alignedImage2); <-- creates the image file of the aligned image.
+
+## Design of the class FaceAligner2
+------------
+FaceAligner
+
+    shape_predictor sp;
+    +double DesiredLeftEye[2];
+    +double DesiredRightEye[2];
+    +int desiredFaceWidth;
+    +int desiredFaceHeight;
+
+
+-align(array2d<rgb_pixel> &img, std::vector<rectangle> dets)
+-alignCV(cv::Mat imageMat, std::vector<rectangle> dets)
+
 
 ## Authors and acknowledgment
 Author | Role

@@ -8,7 +8,7 @@ This is the 2nd module of a **Face Recognition** project. Functional and non-fun
 
 ## Visuals
 
-### Requirements
+## Requirements
 * Linux, Windows or macOS
 * OpenCV
 * Dlib
@@ -33,6 +33,7 @@ This tests where done with help of the 'chrono' functions. When the new image is
 In order to create a FaceAligner, you have to pass it the coordinates where you want the eyes to be in after the alignment, the desired dimension of the output aligned image, and, if you want to, you can also pass the path to the shape_predictor, if not omit the parameter.
 * FaceAligner2::FaceAligner2(double xDesiredLeftEye1, double yDesiredLeftEye1, double xDesiredRightEye1, double yDesiredRightEye1, int desiredFaceWidth1, int desiredFaceHeight1, std::string path)
 * Example: FaceAligner2 faceA2(40.0, 50.0, 110.0,  50.0, 150, 150, "/Users/brias5/Desktop/face_alignment/build/shape_predictor_5_face_landmarks.dat");
+
 In order to align an image use the following commands on the main file:
 * cv::Mat imageMat;
 * detector = get_frontal_face_detector();

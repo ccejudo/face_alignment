@@ -17,14 +17,18 @@ This is the 2nd module of a **Face Recognition** project which align the input i
 * Dlib
 
 ## Installation
-The project includes a 'Main2' file which already has the instance of the class and a 'Input' folder with sample images. You can change the main to your convenience.
+The project includes a 'Main2' file which already has the instance of the class and a 'Input' folder with sample images on the 'Build' folder. You can change the main to your convenience. You will need to download OpenCV. Also, you need Dlib which is included on the folder of the project.
 Steps to follow for the installation:
 * Step 1 --> Download the project.
 
 * Step 2 --> Extract de project.
 
 * Step 3 --> On the 'CMakeLists.txt' file change the following:
+If you have macOs:
 add_subdirectory(/Users/brias5/desktop/face_alignment/dlib-19.17 dlib_build) <-- Insert your path to dlib in here.
+If you have Windows:
+add_subdirectory(/Users/brias5/desktop/face_alignment/dlib-19.17 dlib_build) <-- Insert your path to dlib in here.
+delete
 
 * Step 4 --> When making an instance of 'FaceAligner2' in 'Main2' you can provide the path to the 'shape_predictor_5_face_landmarks', if you don't the constructor will automatically pull it from the Folder you already downloaded. Here you can change the parameters given to the ones that you need in order to have the face in a specific position or with a specific size.
 
@@ -87,14 +91,13 @@ FaceAligner2
 ## Authors and acknowledgment
 Author | Role
 ------------ | -------------
+Leonardo Chang | Project Manager
 Cristopher Cejudo | Project Developer
 Martin Alegría | Project Developer
 Ruben Sánchez | Project Developer
 Sabrina Santana| Project Developer
 Octavio Garduza | Project Developer
 Raziel Martínez | Project Developer
-
-* Leonardo Chang. Role: Project Manager
 
 ## Project status
 ⚠️ Under Maintenance ⚠️

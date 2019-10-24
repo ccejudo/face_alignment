@@ -1,14 +1,15 @@
 # Face Alignment Module
 
-This is a multipataform C++ project that align a face of an input image, identifying the eyes region to obtain a normalized and rotated representation of the face.
+This is a multipataform C++ project that align a face of an input image by identifying the eyes region to obtain a translation, scale and angle to transform the image into a normalized and rotated representation of the face.
 
 ## Description
 
 This is the 2nd module of a **Face Recognition** project. Functional and non-functional requirements can be found on the following link: [link to Trello!](https://trello.com/invite/b/5WHeFcX2/cf90313ec5cdf6685094467676a64ffd/face-recognition-module-2)
 
 ## Visuals
-* Here are some examples of images aligned with the project. We can observe that all images are different and all images are aligned and cropped.
+* Here are some examples of images aligned with the project.
 ![imagen1](ImagenesReadme/imagen1.png)
+* We can observe that all images are different and all images are aligned and cropped.
 ![imagen2](ImagenesReadme/imagen2.png)
 ## Requirements
 * Linux, Windows or macOS
@@ -19,11 +20,16 @@ This is the 2nd module of a **Face Recognition** project. Functional and non-fun
 The project includes a 'Main2' file which already has the instance of the class and a 'Input' folder with sample images. You can change the main to your convenience.
 Steps to follow for the installation:
 * Step 1 --> Download the project.
+
 * Step 2 --> Extract de project.
+
 * Step 3 --> On the 'CMakeLists.txt' file change the following:
 * add_subdirectory(/Users/brias5/desktop/face_alignment/dlib-19.17 dlib_build) <-- Insert your path to dlib in here.
+
 * Step 4 --> When making an instance of 'FaceAligner2' in 'Main2' you can provide the path to the 'shape_predictor_5_face_landmarks', if you don't the constructor will automatically pull it from the Folder you already downloaded. Here you can change the parameters given to the ones that you need in order to have the face in a specific position or with a specific size.
+
 * Step 5 --> On the 'Input' folder add the images you want to align, each one labeled in an ascendant order starting with 1. You can find a 100 images to test the project on the file.
+
 * Step 6 --> Compile on the terminal using the command 'make' and then run the executable. On the 'Output' folder you will find the aligned images. You can also observe on the terminal the size of each image, the points were the eyes are in the new image and the time taken by the function to align the image.
 
 ## Tests

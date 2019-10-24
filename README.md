@@ -8,19 +8,24 @@ This is the 2nd module of a **Face Recognition** project. Functional and non-fun
 
 ## Visuals
 
+### Requirements
+* Linux, Windows or macOS
+* OpenCV
+* Dlib
+
 ## Installation
 * Step 1 --> Download the project.
 * Step 2 --> Extract de project.
 * Step 3 --> On the 'CMakeLists.txt' file change the following:
 * add_subdirectory(/Users/brias5/desktop/face_alignment/dlib-19.17 dlib_build) <-- Insert your path to dlib in here.
-* Step 4 --> When making an instance of 'FaceAligner2' you can provide the path to the 'shape_predictor_5_face_landmarks', if you don't the constructor will automatically pull it from the Folder you already downloaded.
+* Step 4 --> When making an instance of 'FaceAligner2' in 'Main2' you can provide the path to the 'shape_predictor_5_face_landmarks', if you don't the constructor will automatically pull it from the Folder you already downloaded. Here you can change the parameters given to the ones that you need in order to have the face in a specific position or with a specific size.
 * Step 5 --> On the 'Input' file add the images you want to align, each one labeled in an ascendant order starting with 1. You can find a 100 images to test the project on the file.
 * Step 6 --> Compile on the terminal using the command 'make' and then run the executable. On the 'Output' file you will find the aligned images. You can also observe on the terminal the size of each image, the points were the eyes are in the new image and the time taken by the function to align the image.
 
-### Requirements
-* Linux, Windows or macOS
-* OpenCV
-* Dlib
+## Tests
+* On the requirements of the project it is required to have a 99% precision and that the function worked under a 300 ms range of time.
+* When running the project you can observe on the terminal the average time taken by all images, the minimum and maximum time the images took to align and the precision after aligning all images.
+* This tests where done with help of the 'chrono' functions. When the new image is aligned on a different pixel from the chosen one, on the tests it is accepted a 2 pixels difference, the precision will decrease.
 
 ## Usage
 

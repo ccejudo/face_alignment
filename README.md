@@ -28,7 +28,8 @@ If you have macOs:
 add_subdirectory(/Users/brias5/desktop/face_alignment/dlib-19.17 dlib_build) <-- Insert your path to dlib in here.
 If you have Windows:
 add_subdirectory(/Users/brias5/desktop/face_alignment/dlib-19.17 dlib_build) <-- Insert your path to dlib in here.
-delete
+comment the line: find_package(OpenCV REQUIRED)
+uncomment the line: #find_package(OpenCV REQUIRED PATHS /usr/local/share/OpenCV NO_DEFAULT_PATH) <-- Insert yout OpenCV path here.
 
 * Step 4 --> When making an instance of 'FaceAligner2' in 'Main2' you can provide the path to the 'shape_predictor_5_face_landmarks', if you don't the constructor will automatically pull it from the Folder you already downloaded. Here you can change the parameters given to the ones that you need in order to have the face in a specific position or with a specific size.
 

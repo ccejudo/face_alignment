@@ -8,6 +8,7 @@ This is the 2nd module of a **Face Recognition** project. Functional and non-fun
 
 ## Visuals
 ![imagen1](imagen1.png)
+![imagen2](imagen2.png)
 ## Requirements
 * Linux, Windows or macOS
 * OpenCV

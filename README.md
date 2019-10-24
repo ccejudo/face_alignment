@@ -7,7 +7,8 @@ This is a multipataform C++ project that align a face of an input image, identif
 This is the 2nd module of a **Face Recognition** project. Functional and non-functional requirements can be found on the following link: [link to Trello!](https://trello.com/invite/b/5WHeFcX2/cf90313ec5cdf6685094467676a64ffd/face-recognition-module-2)
 
 ## Visuals
-![imagen1](imagen1.png)
+* Here are some examples of images aligned with the project. We can observe that all images are different and all images are aligned and cropped. 
+![imagen1](ImagenesReadme/imagen1.png)
 ![imagen2](ImagenesReadme/imagen2.png)
 ## Requirements
 * Linux, Windows or macOS

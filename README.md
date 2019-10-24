@@ -7,7 +7,7 @@ This is a multipataform C++ project that align a face of an input image, identif
 This is the 2nd module of a **Face Recognition** project. Functional and non-functional requirements can be found on the following link: [link to Trello!](https://trello.com/invite/b/5WHeFcX2/cf90313ec5cdf6685094467676a64ffd/face-recognition-module-2)
 
 ## Visuals
-![imagen1](/Users/brias5/Desktop/imagen1.png)
+![imagen1](imagen1.png)
 ## Requirements
 * Linux, Windows or macOS
 * OpenCV

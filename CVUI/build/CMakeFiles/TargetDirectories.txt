@@ -1,0 +1,3 @@
+/Users/brias5/desktop/face_alignment/CVUI/build/CMakeFiles/rebuild_cache.dir
+/Users/brias5/desktop/face_alignment/CVUI/build/CMakeFiles/edit_cache.dir
+/Users/brias5/desktop/face_alignment/CVUI/build/CMakeFiles/fr.dir
